@@ -1,5 +1,8 @@
 package com.jsoft.testspring.testbeanlifecycle;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -32,5 +35,15 @@ public class HelloWorld implements InitializingBean, DisposableBean {
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("Class init");
+	}
+	
+	@PostConstruct
+	public void initPost(){
+		System.out.println("@ init");
+	}
+	
+	@PreDestroy
+	public void destroyPre(){
+		System.out.println("@ destroy");
 	}
 }
