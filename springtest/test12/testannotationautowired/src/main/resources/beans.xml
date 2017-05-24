@@ -12,7 +12,7 @@
    <bean id="spellChecker" class="com.jsoft.testspring.testannotationautowired.SpellChecker"></bean>
    
    <bean id="textEditor" class="com.jsoft.testspring.testannotationautowired.TextEditor">
-   		<property name="name" value="Hello World!"></property>
+   		
    </bean>
 
 </beans>
