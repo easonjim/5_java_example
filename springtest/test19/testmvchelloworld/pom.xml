@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jsoft.testspring</groupId>
-	<artifactId>testhelloworldmvc</artifactId>
+	<artifactId>testmvchelloworld</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>testhelloworldmvc Maven Webapp</name>
+	<name>testmvchelloworld Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -30,12 +30,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>4.1.4.RELEASE</version>
-				<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- Spring Web -->
@@ -48,15 +42,15 @@
 
 		<!-- Spring Web MVC -->
 		<!-- http://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.1.4.RELEASE</version>
-		</dependency> -->
+		</dependency>
 
 	</dependencies>
 	<build>
-		<finalName>testhelloworldmvc</finalName>
+		<finalName>testmvchelloworld</finalName>
 		<plugins>
 			<!-- Config: Maven Tomcat Plugin -->
 			<!-- http://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin -->
