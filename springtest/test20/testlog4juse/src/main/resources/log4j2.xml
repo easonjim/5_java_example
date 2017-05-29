@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 配置参考：http://blog.csdn.net/seven_zhao/article/details/42124131 -->
+<!-- status="OFF"，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF -->
+<configuration status="OFF">
+     <!-- 定义下面的引用名 -->
+     <Properties>
+          <property name="log_pattern">%d{yyyy-MM-ddHH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n</property>
+          <property name="basePath">c:/</property>
+          <property name="file_name">${basePath}/applog/app.log</property>
+          <property name="rolling_file_name">${basePath}/applog/app-%d{yyyy-MM-dd}-%i.log.gz</property>
+         
+          <property name="every_file_size">10M</property><!-- 日志切割的最小单位 -->
+          <property name="output_log_level">debug</property><!-- 日志输出级别 -->
+     </Properties>
+ 
+    <!--先定义所有的appender-->
+    <appenders>
+       <!--这个输出控制台的配置-->
+       <Console name="Console" target="SYSTEM_OUT">
+           <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+           <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+           <!--这个都知道是输出日志的格式-->
+           <PatternLayout pattern="${log_pattern}"/>
+       </Console>
+ 
+       <!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+       <!-- 按月生成归档日志，可以使用filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz"-->
+       <RollingFile name="RollingFile" fileName="${file_name}" filePattern="${rolling_file_name}">
+           <PatternLayout pattern="${log_pattern}"/>
+           <SizeBasedTriggeringPolicy size="${every_file_size}"/>
+       </RollingFile>
+       
+       <!--如果需要配置多个Rollingfile地址，还需要在root下添加appender-ref ref="RollingFile1"/> 
+        <RollingFile name="RollingFile1" fileName="logs/app1.log" filePattern="logs/app1-%d{yyyy-MM-dd}-%i.log.gz">
+           <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss z}%-5level %class{36} %L %M - %msg%xEx%n"/>
+           <SizeBasedTriggeringPolicy size="10MB"/>
+        </RollingFile>
+        -->
+    </appenders>
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+       <!--建立一个默认的root的logger，需要在root的level中指定输出的级别，-->
+       <root level="${output_log_level}">
+           <appender-ref ref="RollingFile"/>
+           <appender-ref ref="Console"/>
+       </root>
+ 
+    </loggers>
+</configuration>
