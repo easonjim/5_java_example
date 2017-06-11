@@ -1,0 +1,52 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+
+	<servlet>
+		<servlet-name>GetLocale</servlet-name>
+		<servlet-class>com.jsoft.testservletbasics.GetLocale</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetLocale</servlet-name>
+		<url-pattern>/GetLocale</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DisplaySpanish</servlet-name>
+		<servlet-class>com.jsoft.testservletbasics.DisplaySpanish</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DisplaySpanish</servlet-name>
+		<url-pattern>/DisplaySpanish</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DateLocale</servlet-name>
+		<servlet-class>com.jsoft.testservletbasics.DateLocale</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DateLocale</servlet-name>
+		<url-pattern>/DateLocale</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CurrencyLocale</servlet-name>
+		<servlet-class>com.jsoft.testservletbasics.CurrencyLocale</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CurrencyLocale</servlet-name>
+		<url-pattern>/CurrencyLocale</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PercentageLocale</servlet-name>
+		<servlet-class>com.jsoft.testservletbasics.PercentageLocale</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PercentageLocale</servlet-name>
+		<url-pattern>/PercentageLocale</url-pattern>
+	</servlet-mapping>
+</web-app>
