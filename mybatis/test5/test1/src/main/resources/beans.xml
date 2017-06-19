@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--采用DBCP连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	
+	<!-- 新建SessionFactonry -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--dataSource属性指定要用到的连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!--configLocation属性指定mybatis的核心配置文件 -->
+		<property name="configLocation" value="Configuration.xml" />
+	</bean>
+
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<!--sqlSessionFactory属性指定要用到的SqlSessionFactory实例 -->
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<!--mapperInterface属性指定映射器接口，用于实现此接口并生成映射器对象 -->
+		<property name="mapperInterface" value="com.jsoft.testmybatis.inter.IUserOperation" />
+	</bean>
+
+</beans>
