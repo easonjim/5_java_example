@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsoft.testmybatis.inter.CategoryMapper">
+  <resultMap id="BaseResultMap" type="com.jsoft.testmybatis.model.Category">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="catname" jdbcType="VARCHAR" property="catname" />
+    <result column="catdescription" jdbcType="VARCHAR" property="catdescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, catname, catdescription
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from category
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jsoft.testmybatis.model.Category">
+    insert into category (id, catname, catdescription
+      )
+    values (#{id,jdbcType=INTEGER}, #{catname,jdbcType=VARCHAR}, #{catdescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jsoft.testmybatis.model.Category">
+    insert into category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="catname != null">
+        catname,
+      </if>
+      <if test="catdescription != null">
+        catdescription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="catname != null">
+        #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="catdescription != null">
+        #{catdescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jsoft.testmybatis.model.Category">
+    update category
+    <set>
+      <if test="catname != null">
+        catname = #{catname,jdbcType=VARCHAR},
+      </if>
+      <if test="catdescription != null">
+        catdescription = #{catdescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jsoft.testmybatis.model.Category">
+    update category
+    set catname = #{catname,jdbcType=VARCHAR},
+      catdescription = #{catdescription,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
