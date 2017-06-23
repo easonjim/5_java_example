@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsoft.testmybatis.inter.IUserOperation">
+	<!-- 以下两个<cache>标签二选一，第一个可以输出日志，第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<!-- 为了返回List，类型而定义的resultMap -->
+	<resultMap type="User" id="resultListUser">
+		<id column="id" property="id" />
+		<result column="userName" property="userName" />
+		<result column="userAge" property="userAge" />
+		<result column="userAddress" property="userAddress" />
+	</resultMap>
+	<!-- 返回单个实体 -->
+	<select id="selectUserByID" parameterType="int" resultType="User">
+		select * from user where id = #{id}
+	</select>
+	<!-- 返回List的select语句，注意 resultMap的值是指向前面定义好的 -->
+	<select id="selectUsers" parameterType="string" resultMap="resultListUser">
+		select * from user where userName like #{userName}
+	</select>
+	<!--执行增加操作的SQL语句。id和parameterType分别与IUserOperation接口中的addUser方法的名字和参数类型一致。以#{userName}的形式引用User参数 
+		的userName属性，MyBatis将使用反射读取User参数 的此属性。#{userName}中userName大小写敏感。引用其他的userAge等属性与此一致。useGeneratedKeys设置 
+		为"true"表明要MyBatis获取由数据库自动生成的主 键；keyProperty="id"指定把获取到的主键值注入 到User的id属性 -->
+	<insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		insert into user(userName,userAge,userAddress) values(#{userName},#{userAge},#{userAddress})
+	</insert>
+	<update id="updateUser" parameterType="User">
+		update user set userName=#{userName},userAge=#{userAge},userAddress=#{userAddress} where id=#{id}
+	</update>
+	<delete id="deleteUser" parameterType="int">
+		delete from user where id=#{id}
+	</delete>
+
+	<!-- User联合文章进行查询方法之一的配置 (多对一的方式) -->
+	<resultMap id="resultUserArticleList" type="Article">
+		<id property="id" column="aid" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+
+		<association property="user" javaType="User">
+			<id property="id" column="id" />
+			<result property="userName" column="userName" />
+			<result property="userAddress" column="userAddress" />
+		</association>
+	</resultMap>
+	<!-- User 联合文章进行查询 方法之二的配置 (多对一的方式) -->
+	<resultMap id="resultUserArticleList-2" type="Article">
+		<id property="id" column="aid" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<association property="user" javaType="User" resultMap="resultListUser" />
+	</resultMap>
+	<select id="getUserArticles" parameterType="int" resultMap="resultUserArticleList">
+		select user.id,user.userName,user.userAddress,article.id as aid,article.title,article.content from user,article where user.id=article.userid and user.id=#{id}
+	</select>
+	
+</mapper>
