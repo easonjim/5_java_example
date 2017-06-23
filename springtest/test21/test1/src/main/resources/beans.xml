@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util
+       					http://www.springframework.org/schema/util/spring-util.xsd">
+       					
+	<!-- 使用注解注入properties中的值 -->
+	<bean id="config" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+			</list>
+		</property>
+		<!-- 设置编码格式 -->
+		<property name="fileEncoding" value="UTF-8"></property>
+	</bean>
+	
+	<util:properties id="db" location="classpath:db.properties"/>
+	
+	<!--采用DBCP连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="#{db['jdbc.driver']}" />
+		<property name="url" value="#{db['jdbc.url']}" />
+		<property name="username" value="#{db['jdbc.username']}" />
+		<property name="password" value="#{db['jdbc.password']}" />
+	</bean>
+
+	<!-- 事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 新建SessionFactonry -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--dataSource属性指定要用到的连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!--configLocation属性指定mybatis的核心配置文件 -->
+		<property name="configLocation" value="classpath:Configuration.xml" />
+		<!-- 所有配置的mapper文件 -->
+		<property name="mapperLocations" value="classpath:com/jsoft/testmybatis/models/*.xml" />
+		<!-- 所有的实体 -->
+		<property name="typeAliasesPackage" value="com.jsoft.testmybatis.models"/>
+	</bean>
+	
+	<!-- 映射接口文件 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.jsoft.testmybatis.inter" />
+	</bean>
+
+</beans>
