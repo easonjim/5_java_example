@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- 引入properties配置文件 -->
+	<properties resource="config.properties" />
+
+	<!-- a full setting configuration -->
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+	</settings>
+
+	<!-- 三种种使用别称的方式  -->
+	<!-- 1-逐个限定 -->
+	<!-- <typeAliases>
+		<typeAlias alias="class" type="com.jsoft.testmybatis.bean.Klass" />
+	</typeAliases> -->
+	<!-- 2-限定包, 这样此包中的bean类 别称会 默认为类名, 效果和上面一样 -->
+	<typeAliases>
+		<package name="com.jsoft.testmybatis.bean" />
+	</typeAliases>
+	<!-- 3-在类中使用 @Alias注解直接命名, 如@Alias("Klass") 效果和上面一样 -->
+
+	<!-- 配置环境 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!-- 配置mapper映射文件, 所有mapper映射文件必须填在此处，如果蚕蛹注解的方式这个可以省略 -->
+	<mappers>
+		<mapper resource="com/jsoft/testmybatis/mapper/KlassMapper.xml" />
+		<mapper resource="com/jsoft/testmybatis/mapper/StudentMapper.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="StudentMapper">
+
+	<resultMap id="ResultStudent" type="Student">
+		<id column="s_id" property="id" jdbcType="INTEGER" />
+		<result column="s_name" property="name" jdbcType="VARCHAR" />
+		<association property="klass" javaType="Klass" resultMap="ResultKlass" />
+	</resultMap>
+	
+	<resultMap id="ResultKlass" type="Klass">
+		<id column="k_id" property="id" jdbcType="INTEGER" />
+		<result column="k_name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		s.id as s_id, s.name as s_name, k.id as k_id, k.name as k_name 
+	</sql>
+
+	<!-- insert -->
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="Student">
+		<selectKey keyProperty="id" order="AFTER" resultType="int">
+			select last_insert_id()
+		</selectKey>
+		insert into student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="klass != null">
+				<if test="klass.id != null and klass.id > 0">
+					k_id
+				</if>
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="klass != null">
+				<if test="klass.id != null and klass.id > 0">
+					#{klass.id,jdbcType=INTEGER}
+				</if>
+			</if>
+		</trim>
+	</insert>
+
+	<!-- delete -->
+	<delete id="deleteByPrimaryKey" parameterType="int">
+		delete from student
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!-- update -->
+	<update id="updateByPrimaryKey" parameterType="Student">
+		update student
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="klass != null">
+				<if test="klass.id != null and klass.id > 0">
+					k_id
+				</if>
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- retrieve -->
+	<select id="retrieveByPrimaryKey" resultMap="ResultStudent" parameterType="int">
+	select
+		<include refid="Base_Column_List" />
+		from student as s, klass as k
+		where s.k_id = k.id and s.id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="retrieveByPage" resultType="Student" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from student as s, klass as k
+		<trim prefix="where" prefixOverrides="and|or">
+			s.k_id = k.id 
+			<if test="student != null">
+				<if test="student.name != null and student.name != ''">
+					and s.name like concat('%',#{student.name},'%')
+				</if>
+			</if>
+		</trim>
+		limit #{start}, #{size}
+	</select>
+
+	<select id="retrieveCount" resultType="int" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from student as s, klass as k
+		<trim prefix="where" prefixOverrides="and|or">
+			s.k_id = k.id 
+			<if test="student != null">
+				<if test="student.name != null and student.name != ''">
+					and s.name like concat('%',#{student.name},'%')
+				</if>
+			</if>
+		</trim>
+	</select>
+	
+	<select id="retrieveByMultiId" resultMap="ResultStudent" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from student as s, klass as k
+		<where>
+			s.k_id = k.id 
+			<if test="list != null">
+				and s.id in 
+				<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	
+	<select id="retrieveStudentLike" resultMap="ResultStudent" parameterType="map">
+		<bind name="name" value="'%'+student.name+'%'"/>
+		select
+		<include refid="Base_Column_List" />
+		from student as s, klass as k
+		<trim prefix="where" prefixOverrides="and|or">
+			s.k_id = k.id  and s.name like #{name}
+		</trim>
+	</select>
+
+</mapper>

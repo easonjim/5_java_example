@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KlassMapper">
+
+	<resultMap id="ResultKlass" type="Klass">
+		<id column="k_id" property="id" jdbcType="INTEGER" />
+		<result column="k_name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap type="Klass" id="ResultKlassStudentCollection" extends="ResultKlass">
+		<collection property="students" ofType="Student">
+			<id column="s_id" property="id" jdbcType="INTEGER" />
+			<result column="s_name" property="name" jdbcType="VARCHAR" />
+		</collection>
+	</resultMap>
+	
+	<sql id="column_klass">
+		k.id as k_id, k.name as k_name
+	</sql>
+	
+	<sql id="column_student">
+		s.id as s_id, s.name as s_name
+	</sql>
+
+	<!-- insert -->
+	<!-- 使用数据库设定的自增id  useGeneratedKeys="true" keyProperty="id" -->
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="Klass">
+		<!-- 返回新保存的这条数据的id,在保存后,用保存前对象.getId()得到-->
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into klass
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+
+	<!-- delete -->
+	<delete id="deleteByPrimaryKey" parameterType="int">
+		delete from klass
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<delete id="deleteByBatch" parameterType="java.util.List">
+		delete from klass
+		where id in 
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- update -->
+	<update id="updateByPrimaryKey" parameterType="Klass">
+		update klass
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- retrieve -->
+	<select id="retrieveByPrimaryKey" resultMap="ResultKlass" parameterType="int">
+	select
+		<include refid="column_klass" />
+		from klass as k
+		where k.id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="retrieveKlassWithStudent" resultMap="ResultKlassStudentCollection" parameterType="int">
+	select
+		<include refid="column_klass" />,
+		<include refid="column_student" />
+		from klass as k, student as s 
+		where k.id = s.k_id and k.id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="retrieveByPage" resultMap="ResultKlass" parameterType="map">
+		select
+		<include refid="column_klass" />
+		from klass as k
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="klass != null">
+				<if test="class.name != null and class.name != ''">
+					and name like concat('%',#{class.name},'%')
+				</if>
+			</if>
+		</trim>
+		limit #{start}, #{size}
+	</select>
+
+	<select id="retrieveCount" resultType="int" parameterType="map">
+		select count(*)
+		from company_economy_type
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="klass != null">
+				<if test="klass.name != null and klass.name != ''">
+					and name like concat('%',#{klass.name},'%')
+				</if>
+			</if>
+		</trim>
+	</select>
+
+	<select id="retrievePages" resultMap="ResultKlass" parameterType="map">
+		select
+		<include refid="column_klass" />
+		from klass as k
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="klass != null">
+				<if test="class.name != null and class.name != ''">
+					and name like concat('%',#{class.name},'%')
+				</if>
+			</if>
+		</trim>
+	</select>
+</mapper>
