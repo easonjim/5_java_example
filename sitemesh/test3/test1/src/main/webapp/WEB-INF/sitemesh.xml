@@ -12,7 +12,11 @@
 			<!-- 注意这一行指定<meta/>标签的 name 属性作为PageDecorator的识别符号 -->
 			<param name="property.3" value="meta.theme" />
 		</mapper>
-		<mapper class="com.opensymphony.module.sitemesh.mapper.ParameterDecoratorMapper"/>
+		<mapper class="com.opensymphony.module.sitemesh.mapper.ParameterDecoratorMapper">
+			<param name="decorator.parameter" value="theme"/>
+			<param name="parameter.name" value="confirm"/>
+			<param name="parameter.value" value="true"/>
+		</mapper>
 		<mapper class="com.opensymphony.module.sitemesh.mapper.FrameSetDecoratorMapper"/>
 		<mapper class="com.opensymphony.module.sitemesh.mapper.PrintableDecoratorMapper">
 			<param name="decorator" value="printable" />
