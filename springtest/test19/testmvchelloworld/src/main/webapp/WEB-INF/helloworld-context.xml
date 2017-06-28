@@ -23,8 +23,5 @@
 			<value>.jsp</value>
 		</property>   
    </bean>
-   
-   <mvc:resources location="/WEB-INF/pages/" mapping="/pages/**"/>
-   <mvc:annotation-driven/>
     
 </beans>
