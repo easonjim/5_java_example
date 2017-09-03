@@ -33,6 +33,7 @@ public class UserController {
 		model.addAttribute("receivePaper", user.isReceivePaper());
 		model.addAttribute("favoriteFrameworks", user.getFavoriteFrameworks());
 		model.addAttribute("gender", user.getGender());
+		model.addAttribute("favoriteNumber", user.getFavoriteNumber());
 		return "users";
 	}
 
@@ -44,5 +45,15 @@ public class UserController {
 		webFrameworkList.add("Struts 2");
 		webFrameworkList.add("Apache Wicket");
 		return webFrameworkList;
+	}
+	
+	@ModelAttribute("numbersList")
+	public List<String> getNumbersList() {
+		List<String> numbersList = new ArrayList<String>();
+		numbersList.add("1");
+		numbersList.add("2");
+		numbersList.add("3");
+		numbersList.add("4");
+		return numbersList;
 	}
 }
