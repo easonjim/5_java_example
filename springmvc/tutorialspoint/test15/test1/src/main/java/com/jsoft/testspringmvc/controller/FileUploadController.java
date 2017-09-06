@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jsoft.testspringmvc.helper.Tools;
 import com.jsoft.testspringmvc.model.FileModel;
 
 @Controller
@@ -40,6 +41,7 @@ public class FileUploadController {
 			System.out.println("Fetching file");
 			MultipartFile multipartFile = file.getFile();
 			String uploadPath = context.getRealPath("") + File.separator + "temp" + File.separator;
+			Tools.isExistDir(uploadPath);
 			// Now do something with file...
 			FileCopyUtils.copy(file.getFile().getBytes(), new File(uploadPath + file.getFile().getOriginalFilename()));
 			String fileName = multipartFile.getOriginalFilename();
