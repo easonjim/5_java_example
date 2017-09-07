@@ -24,9 +24,16 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- Controller Class Name Handler Mapping  -->
-	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-	<bean class="com.jsoft.testspringmvc.controller.HelloController" />
-	<bean class="com.jsoft.testspringmvc.controller.WelcomeController" />
+	<!-- Simple Url Handler Mapping  -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+      <property name="mappings">
+         <props>
+            <prop key="/welcome.htm">welcomeController</prop>           
+            <prop key="/helloWorld.htm">helloController</prop>
+         </props>
+      </property>
+   </bean>
+	<bean id="helloController" class="com.jsoft.testspringmvc.controller.HelloController" />
+	<bean id="welcomeController" class="com.jsoft.testspringmvc.controller.WelcomeController" />
 	
 </beans>
