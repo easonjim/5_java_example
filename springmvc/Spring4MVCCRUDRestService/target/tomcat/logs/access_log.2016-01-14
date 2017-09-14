@@ -1,0 +1,12 @@
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:24:26 +0800] "GET /Spring4MVCCRUDRestService/user/ HTTP/1.1" 200 210 http-bio-8080-exec-1 154
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:26:04 +0800] "GET /Spring4MVCCRUDRestService/user/1 HTTP/1.1" 200 58 http-bio-8080-exec-3 43
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:26:25 +0800] "GET /Spring4MVCCRUDRestService/user/188 HTTP/1.1" 404 - http-bio-8080-exec-4 8
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:29:45 +0800] "POST /Spring4MVCCRUDRestService/user/ HTTP/1.1" 415 1048 http-bio-8080-exec-6 203
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:30:51 +0800] "POST /Spring4MVCCRUDRestService/user/ HTTP/1.1" 201 - http-bio-8080-exec-8 31
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:32:23 +0800] "POST /Spring4MVCCRUDRestService/user/5 HTTP/1.1" 405 1047 http-bio-8080-exec-10 4
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:32:34 +0800] "GET /Spring4MVCCRUDRestService/user/5 HTTP/1.1" 200 60 http-bio-8080-exec-10 7
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:33:51 +0800] "POST /Spring4MVCCRUDRestService/user/ HTTP/1.1" 400 968 http-bio-8080-exec-3 8
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:34:15 +0800] "POST /Spring4MVCCRUDRestService/user/ HTTP/1.1" 409 - http-bio-8080-exec-4 4
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:37:03 +0800] "DELETE /Spring4MVCCRUDRestService/user/3 HTTP/1.1" 204 - http-bio-8080-exec-6 8
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:38:30 +0800] "DELETE /Spring4MVCCRUDRestService/user/ HTTP/1.1" 204 - http-bio-8080-exec-8 6
+0:0:0:0:0:0:0:1 - - [14/Jan/2016:10:39:03 +0800] "GET /Spring4MVCCRUDRestService/user/ HTTP/1.1" 204 - http-bio-8080-exec-8 4
