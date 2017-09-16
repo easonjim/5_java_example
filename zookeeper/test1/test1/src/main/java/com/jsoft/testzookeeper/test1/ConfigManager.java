@@ -1,6 +1,9 @@
 package com.jsoft.testzookeeper.test1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.util.Date;
+
 import org.I0Itec.zkclient.ZkClient;
 
 public class ConfigManager {
@@ -14,6 +17,8 @@ public class ConfigManager {
 		// query config from database
 		// TODO...
 		ftpConfig = new FtpConfig(21, "192.168.1.1", "test", "123456");
+		System.out.println("从db加载初始配置");
+		System.out.println("ftpConfig=>"+ftpConfig);
 	}
 
 	/**
@@ -34,6 +39,8 @@ public class ConfigManager {
 		ftpConfig.setPassword(password);
 		// write to db...
 		// TODO...
+		System.out.println("更新DB中的配置");
+		System.out.println("ftpConfig=>"+ftpConfig);
 	}
 
 	/**
@@ -46,6 +53,7 @@ public class ConfigManager {
 		}
 		zk.writeData(ZKUtil.FTP_CONFIG_NODE_NAME, ftpConfig);
 		zk.close();
+		System.out.println("将配置同步到ZK");
 	}
 
 }

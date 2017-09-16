@@ -2,9 +2,6 @@ package com.jsoft.testzookeeper.test1;
 
 import java.io.Serializable;
 
-/**
- * Created by jimmy on 15/6/27.
- */
 public class FtpConfig implements Serializable {
 
 	/**
