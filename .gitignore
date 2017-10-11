@@ -14,3 +14,11 @@ swagger2test/test1/\.project
 swagger2test/test1/\.classpath
 
 swagger2test/test1/\.settings/
+
+apollotest/test1/\.settings/
+
+apollotest/test1/\.classpath
+
+apollotest/test1/\.project
+
+apollotest/test1/target/
