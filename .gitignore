@@ -22,3 +22,19 @@ apollotest/test1/\.classpath
 apollotest/test1/\.project
 
 apollotest/test1/target/
+
+apollotest/test2/\.project
+
+apollotest/test2/\.settings/
+
+apollotest/test2/zookeeperclient/\.settings/
+
+apollotest/test2/zookeeperclient/\.classpath
+
+apollotest/test2/zookeeperclient/\.project
+
+apollotest/test2/zookeeperservice/\.settings/
+
+apollotest/test2/zookeeperservice/\.classpath
+
+apollotest/test2/zookeeperservice/\.project
