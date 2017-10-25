@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>简单登录认证</title>
+</head>
+<body>
+    <h1>简单登录认证</h1>
+    <h3 th:text="'登录用户：' + ${name}"></h3>
+    
+    <a href="/logout">注销</a>
+</body>
+</html>
