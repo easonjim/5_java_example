@@ -1,0 +1,13 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+    <bean id="springHelloWorld" class="com.jsoft.test.hellospring.helloworld.impl.SpringHelloWorld"></bean>
+    <bean id="strutsHelloWorld" class="com.jsoft.test.hellospring.helloworld.impl.StrutsHelloWorld"></bean>
+ 
+    <bean id="helloWorldService" class="com.jsoft.test.hellospring.helloworld.HelloWorldService">
+        <property name="HelloWorld" ref="strutsHelloWorld"/>
+    </bean>
+  
+</beans>
