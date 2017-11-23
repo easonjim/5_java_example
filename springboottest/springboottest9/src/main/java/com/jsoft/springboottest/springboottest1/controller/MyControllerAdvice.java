@@ -40,7 +40,7 @@ public class MyControllerAdvice {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public Map processUnauthenticatedException(NativeWebRequest request, Exception e) {
-        System.out.println("===========应用到所有@RequestMapping注解的方法，在其抛出UnauthenticatedException异常时执行");
+        System.out.println("===========应用到所有@RequestMapping注解的方法，在其抛出Exception异常时执行");
         Map map = new HashMap(5);
         map.put("code", 404);
         map.put("msg", e.getMessage());
