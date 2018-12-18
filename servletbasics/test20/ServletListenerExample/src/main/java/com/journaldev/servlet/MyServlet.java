@@ -17,7 +17,7 @@ public class MyServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("----------requst-----------");
+		System.out.println("----------requst start-----------");
 			ServletContext ctx = request.getServletContext();
 			ctx.setAttribute("User", "Pankaj");
 			String user = (String) ctx.getAttribute("User");
