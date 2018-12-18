@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/MyServlet")
 public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("----------requst start-----------");
 			ServletContext ctx = request.getServletContext();
 			ctx.setAttribute("User", "Pankaj");
 			String user = (String) ctx.getAttribute("User");
@@ -23,7 +25,7 @@ public class MyServlet extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			session.invalidate();
-			
+
 			PrintWriter out = response.getWriter();
 			out.write("Hi "+user);
 	}
